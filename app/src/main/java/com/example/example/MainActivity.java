@@ -13,6 +13,8 @@ import com.example.example.recycler_view.RecyclerViewGridViewActivity;
 import com.example.example.recycler_view.RecyclerViewHorizontalActivity;
 import com.example.example.recycler_view.RecyclerViewVerticalActivity;
 import com.example.example.toolbar.ToolBarActivity;
+import com.example.example.weather.activity.ChooseAreaActivity;
+import com.example.example.weather.activity.ChooseAreaActivity_;
 
 import java.util.ArrayList;
 
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         mDatas.add(RecyclerViewVerticalActivity.TAG);
         mDatas.add(RecyclerViewGridViewActivity.TAG);
         mDatas.add(ToolBarActivity.TAG);
+        mDatas.add("天气预报");
 
 
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mDatas);
@@ -55,13 +58,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             intent = new Intent(this, RecyclerViewHorizontalActivity.class);
         } else if (TextUtils.equals(position, RecyclerViewVerticalActivity.TAG)) {
             intent = new Intent(this, RecyclerViewVerticalActivity.class);
-        }else if (TextUtils.equals(position, RecyclerViewGridViewActivity.TAG)) {
+        } else if (TextUtils.equals(position, RecyclerViewGridViewActivity.TAG)) {
             intent = new Intent(this, RecyclerViewGridViewActivity.class);
-        }else if (TextUtils.equals(position, ToolBarActivity.TAG)) {
+        } else if (TextUtils.equals(position, ToolBarActivity.TAG)) {
             intent = new Intent(this, ToolBarActivity.class);
+        } else if (TextUtils.equals(position, ChooseAreaActivity.TAG)) {
+            intent = new Intent(this, ChooseAreaActivity_.class);
         }
-
-
         if (null != intent) {
             startActivity(intent);
         }

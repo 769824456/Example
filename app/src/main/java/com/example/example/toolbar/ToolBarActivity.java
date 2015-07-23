@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
  * AUTHOR :  yulongsun
  * CREATE AT : 7/23/2015 1:35 PM
  * COPYRIGHT : InSigma HengTian Software Ltd.
- * NOTE :
+ * NOTE :ToolBar
  */
 public class ToolBarActivity extends AppCompatActivity {
     public static final String TAG = "ToolBarActivity";

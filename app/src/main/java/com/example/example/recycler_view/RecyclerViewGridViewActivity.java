@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.example.R;
+import com.example.example.recycler_view.adapter.GalleryGridViewAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;

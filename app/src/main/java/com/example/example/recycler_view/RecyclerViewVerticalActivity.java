@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.example.R;
+import com.example.example.recycler_view.adapter.GalleryAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +28,7 @@ public class RecyclerViewVerticalActivity extends AppCompatActivity implements G
     public static final String TAG = "RecyclerViewVerticalActivity";
     @Bind(R.id.id_recycler_view_vertical)
     RecyclerView idRecyclerViewVertical;
+
     private ArrayList<Integer> mDatas;
     private GalleryAdapter mAdapter;
 

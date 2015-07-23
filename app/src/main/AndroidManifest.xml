@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.example" >
+    package="com.example.example">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,13 +27,20 @@
         <activity android:name=".recycler_view.RecyclerViewHorizontalActivity" />
         <activity
             android:name=".recycler_view.RecyclerViewVerticalActivity"
-            android:label="@string/title_activity_recycler_view_vertical" >
-        </activity>
-        <activity android:name=".recycler_view.RecyclerViewGridViewActivity" />
+            android:label="@string/title_activity_recycler_view_vertical"></activity>
+        <activity
+            android:name=".recycler_view.RecyclerViewGridViewActivity"
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".toolbar.ToolBarActivity"
-            android:label="@string/title_activity_tool_bar" >
-        </activity>
+            android:label="@string/title_activity_tool_bar"></activity>
+        <activity
+            android:name=".weather.activity.ChooseAreaActivity_"
+            android:label="@string/app_name"></activity>
+        <activity android:name=".weather.activity.WeatherActivity_"></activity>
+
+        <receiver android:name=".weather.receiver.AutoUpdateReceiver" />
+        <service android:name=".weather.service.AutoUpdateService" />
     </application>
 
 </manifest>

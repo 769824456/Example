@@ -1,4 +1,4 @@
-package com.example.example.recycler_view;
+package com.example.example.recycler_view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +12,6 @@ import com.example.example.R;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
-
 /*
  * PROJECT_NAME :Example
  * VERSION :[V 1.0.0]
@@ -25,7 +23,7 @@ import butterknife.Bind;
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
     private final ArrayList<Integer> mDatas;
     private final LayoutInflater mInflater;
-    private OnItemClickListener mOnItemClickListener;
+    public OnItemClickListener mOnItemClickListener;
 
     /**构造
      * @param context
@@ -69,7 +67,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int i) {
         viewHolder.ivItemRecyclerView.setImageResource(mDatas.get(i));
-        //4.接口回调
+        // 接口回调
         if(mOnItemClickListener!=null){
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -93,7 +91,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
     //=====================定义接口============================+
     //让Activity去实现接口
-    interface OnItemClickListener {
+    public interface OnItemClickListener {
         void onItemClick(View view,int position);
     };
 

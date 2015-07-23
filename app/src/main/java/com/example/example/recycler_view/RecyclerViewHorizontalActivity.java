@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.example.R;
+import com.example.example.recycler_view.adapter.GalleryAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.example.example.recycler_view;
+package com.example.example.recycler_view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class GalleryGridViewAdapter extends RecyclerView.Adapter<GalleryGridViewAdapter.ViewHolder> {
     private final ArrayList<Integer> mDatas;
     private final LayoutInflater mInflater;
-    private OnItemClickListener mOnItemClickListener;
+    public OnItemClickListener mOnItemClickListener;
 
     /**构造
      * @param context
@@ -99,7 +99,7 @@ public class GalleryGridViewAdapter extends RecyclerView.Adapter<GalleryGridView
 
     //=====================定义接口============================+
     //让Activity去实现接口
-    interface OnItemClickListener {
+    public interface OnItemClickListener {
         void onItemClick(View view, int position);
     };
 
