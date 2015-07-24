@@ -2,11 +2,14 @@ package com.example.example.weather.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,11 +19,11 @@ import com.example.example.weather.net.HttpUtil;
 import com.example.example.weather.service.AutoUpdateService;
 import com.example.example.weather.utils.ResponseHandlerUtil;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.NoTitle;
-import org.androidannotations.annotations.ViewById;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 
 /*
  * PROJECT_NAME :ExampleSet
@@ -30,33 +33,44 @@ import org.androidannotations.annotations.ViewById;
  * COPYRIGHT : InSigma HengTian Software Ltd.
  * NOTE : 显示天气
  */
-@EActivity(R.layout.activity_weather)
-@NoTitle
 public class WeatherActivity extends ActionBarActivity {
 
-    @ViewById
-    TextView tv_city_name; //城市名字
-    @ViewById
-    TextView tv_temp1;
-    @ViewById
-    TextView tv_temp2;
-    @ViewById
-    TextView tv_weather_desp; //用于显示天气描述信息
-    @ViewById
-    LinearLayout ll_weather_info_layout;
-    @ViewById
-    TextView tv_current_date;
-    @ViewById
-    TextView tv_publish_time; //发布时间
 
-    @AfterViews
-    void initView(){
+    @Bind(R.id.btn_switch_city)
+    Button btnSwitchCity;
+    @Bind(R.id.tv_city_name)
+    TextView tvCityName;
+    @Bind(R.id.btn_refresh_weather)
+    Button btnRefreshWeather;
+    @Bind(R.id.tv_publish_time)
+    TextView tvPublishTime;
+    @Bind(R.id.tv_current_date)
+    TextView tvCurrentDate;
+    @Bind(R.id.tv_weather_desp)
+    TextView tvWeatherDesp;
+    @Bind(R.id.tv_temp1)
+    TextView tvTemp1;
+    @Bind(R.id.tv_temp2)
+    TextView tvTemp2;
+    @Bind(R.id.ll_weather_info_layout)
+    LinearLayout llWeatherInfoLayout;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState ) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_weather);
+
+        ButterKnife.bind(this);
+        initView();
+    }
+
+    void initView() {
         String countyCode = getIntent().getStringExtra("county_code");
         if (!TextUtils.isEmpty(countyCode)) {
             // 有县级代号时就去查询天气
-            tv_publish_time.setText("同步中...");
-            ll_weather_info_layout.setVisibility(View.INVISIBLE);
-            tv_city_name.setVisibility(View.INVISIBLE);
+            tvPublishTime.setText("同步中...");
+            llWeatherInfoLayout.setVisibility(View.INVISIBLE);
+            tvCityName.setVisibility(View.INVISIBLE);
             queryWeatherCode(countyCode);
         } else {
             // 没有县级代号时就直接显示本地天气
@@ -64,17 +78,17 @@ public class WeatherActivity extends ActionBarActivity {
         }
     }
 
-    @Click(R.id.btn_switch_city)
-    void switchCity(){
-        Intent intent = new Intent(this, ChooseAreaActivity_.class);
+    @OnClick(R.id.btn_switch_city)
+    void switchCity() {
+        Intent intent = new Intent(this, ChooseAreaActivity.class);
         intent.putExtra("from_weather_activity", true);
         startActivity(intent);
         finish();
     }
 
-    @Click( R.id.btn_refresh_weather)
-    void refreshWeather(){
-        tv_publish_time.setText("同步中...");
+    @OnClick(R.id.btn_refresh_weather)
+    void refreshWeather() {
+        tvPublishTime.setText("同步中...");
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherCode = prefs.getString("weather_code", "");
         if (!TextUtils.isEmpty(weatherCode)) {
@@ -133,30 +147,30 @@ public class WeatherActivity extends ActionBarActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        tv_publish_time.setText("同步失败");
+                        tvPublishTime.setText("同步失败");
                     }
                 });
             }
         });
     }
+
     /**
      * 从SharedPreferences文件中读取存储的天气信息，并显示到界面上。
      */
     private void showWeather() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        tv_city_name.setText(prefs.getString("city_name", ""));
-        tv_temp1.setText(prefs.getString("temp1", ""));
-        tv_temp2.setText(prefs.getString("temp2", ""));
-        tv_weather_desp.setText(prefs.getString("weather_desp", ""));
-        tv_publish_time.setText("今天" + prefs.getString("publish_time", "") + "发布");
-        tv_current_date.setText(prefs.getString("current_date", ""));
-        ll_weather_info_layout.setVisibility(View.VISIBLE);
-        tv_city_name.setVisibility(View.VISIBLE);
+        tvCityName.setText(prefs.getString("city_name", ""));
+        tvTemp1.setText(prefs.getString("temp1", ""));
+        tvTemp2.setText(prefs.getString("temp2", ""));
+        tvWeatherDesp.setText(prefs.getString("weather_desp", ""));
+        tvPublishTime.setText("今天" + prefs.getString("publish_time", "") + "发布");
+        tvCurrentDate.setText(prefs.getString("current_date", ""));
+        llWeatherInfoLayout.setVisibility(View.VISIBLE);
+        tvCityName.setVisibility(View.VISIBLE);
         //开启自动更新服务
         Intent intent = new Intent(this, AutoUpdateService.class);
         startService(intent);
     }
-
 
 
 }

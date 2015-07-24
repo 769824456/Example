@@ -3,6 +3,8 @@ package com.example.example.weather.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
@@ -14,7 +16,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.example.R;
 import com.example.example.weather.bean.City;
 import com.example.example.weather.bean.County;
@@ -24,13 +25,11 @@ import com.example.example.weather.net.HttpCallbackListener;
 import com.example.example.weather.net.HttpUtil;
 import com.example.example.weather.utils.ResponseHandlerUtil;
 
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.NoTitle;
-import org.androidannotations.annotations.ViewById;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /*
  * PROJECT_NAME :ExampleSet
@@ -40,19 +39,17 @@ import java.util.List;
  * COPYRIGHT : InSigma HengTian Software Ltd.
  * NOTE : 选择区域
  */
-@EActivity(R.layout.activity_choose_area)
-@NoTitle
 public class ChooseAreaActivity extends ActionBarActivity {
-    public static final String TAG = "ChooseAreaActivity";
+    public static final String TAG = "天气预报";
 
-    @ViewById
-    TextView tv_choose_area_title;
-    @ViewById
-    ListView lv_choose_area;
     //==============================================
     private static final int LEVEL_PROVINCE = 0;
     private static final int LEVEL_CITY = 1;
     private static final int LEVEL_COUNTY = 2;
+    @Bind(R.id.tv_choose_area_title)
+    TextView tvChooseAreaTitle;
+    @Bind(R.id.lv_choose_area)
+    ListView lvChooseArea;
 
     private int currentLevel = 0; // 当前选中的级别
 
@@ -70,6 +67,14 @@ public class ChooseAreaActivity extends ActionBarActivity {
     private WeatherDB weatherDB;
     private boolean isFromWeatherActivity;
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_choose_area);
+        ButterKnife.bind(this);
+        initViews();
+    }
     //===============================================
 
     /**
@@ -82,12 +87,11 @@ public class ChooseAreaActivity extends ActionBarActivity {
     /**
      * 初始化布局
      */
-    @AfterViews
     void initViews() {
         isFromWeatherActivity = getIntent().getBooleanExtra("from_weather_activity", false);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (prefs.getBoolean("city_selected", false) && !isFromWeatherActivity) {
-            Intent intent = new Intent(this, WeatherActivity_.class);
+            Intent intent = new Intent(this, WeatherActivity.class);
             startActivity(intent);
             finish();
             return;
@@ -96,11 +100,11 @@ public class ChooseAreaActivity extends ActionBarActivity {
         weatherDB = WeatherDB.getInstance(this);
 
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mDataList);
-        lv_choose_area.setAdapter(mAdapter);
+        lvChooseArea.setAdapter(mAdapter);
         //加载省数据
         queryProvinces();
 
-        lv_choose_area.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvChooseArea.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (currentLevel == LEVEL_PROVINCE) {
@@ -113,7 +117,7 @@ public class ChooseAreaActivity extends ActionBarActivity {
                     queryCounties();
                 } else if (currentLevel == LEVEL_COUNTY) {
                     String countyCode = countyList.get(position).getCountyCode();
-                    Intent intent = new Intent(ChooseAreaActivity.this, WeatherActivity_.class);
+                    Intent intent = new Intent(ChooseAreaActivity.this, WeatherActivity.class);
                     intent.putExtra("county_code", countyCode);
                     startActivity(intent);
                     finish();
@@ -136,8 +140,8 @@ public class ChooseAreaActivity extends ActionBarActivity {
                 mDataList.add(province.getProvinceName());
             }
             mAdapter.notifyDataSetChanged();
-            lv_choose_area.setSelection(0);//默认选中第一个
-            tv_choose_area_title.setText("中国");
+            lvChooseArea.setSelection(0);//默认选中第一个
+            tvChooseAreaTitle.setText("中国");
 
             currentLevel = LEVEL_PROVINCE;
 
@@ -159,8 +163,8 @@ public class ChooseAreaActivity extends ActionBarActivity {
                 mDataList.add(city.getCityName());
             }
             mAdapter.notifyDataSetChanged();
-            lv_choose_area.setSelection(0);
-            tv_choose_area_title.setText(selectedProvince.getProvinceName());
+            lvChooseArea.setSelection(0);
+            tvChooseAreaTitle.setText(selectedProvince.getProvinceName());
 
             currentLevel = LEVEL_CITY;
         } else { //从服务器加载数据
@@ -182,8 +186,8 @@ public class ChooseAreaActivity extends ActionBarActivity {
                 mDataList.add(county.getCountyName());
             }
             mAdapter.notifyDataSetChanged();
-            lv_choose_area.setSelection(0);
-            tv_choose_area_title.setText(selectedCity.getCityName());
+            lvChooseArea.setSelection(0);
+            tvChooseAreaTitle.setText(selectedCity.getCityName());
 
             currentLevel = LEVEL_COUNTY;
         }
@@ -292,7 +296,7 @@ public class ChooseAreaActivity extends ActionBarActivity {
             queryProvinces();
         } else {
             if (isFromWeatherActivity) {
-                Intent intent = new Intent(this, WeatherActivity_.class);
+                Intent intent = new Intent(this, WeatherActivity.class);
                 startActivity(intent);
             }
             finish();

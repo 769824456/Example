@@ -9,14 +9,16 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".app.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".app.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,20 +29,57 @@
         <activity android:name=".recycler_view.RecyclerViewHorizontalActivity" />
         <activity
             android:name=".recycler_view.RecyclerViewVerticalActivity"
-            android:label="@string/title_activity_recycler_view_vertical"></activity>
+            android:label="@string/title_activity_recycler_view_vertical" />
         <activity
             android:name=".recycler_view.RecyclerViewGridViewActivity"
             android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".toolbar.ToolBarActivity"
-            android:label="@string/title_activity_tool_bar"></activity>
+            android:label="@string/title_activity_tool_bar" />
         <activity
-            android:name=".weather.activity.ChooseAreaActivity_"
-            android:label="@string/app_name"></activity>
-        <activity android:name=".weather.activity.WeatherActivity_"></activity>
+            android:name=".weather.activity.ChooseAreaActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".weather.activity.WeatherActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <receiver android:name=".weather.receiver.AutoUpdateReceiver" />
+
         <service android:name=".weather.service.AutoUpdateService" />
+
+        <activity
+            android:name=".fresco.FrescoActivity"
+            android:label="@string/title_activity_fresco"></activity>
+        <activity
+            android:name=".fresco.LoadHttpImageActivity"
+            android:label="@string/title_activity_load_http_image"></activity>
+        <activity
+            android:name=".fresco.LoadAssetImageActivity"
+            android:label="@string/title_activity_load_asset_image"></activity>
+        <activity
+            android:name=".fresco.LoadRestImageActivity"
+            android:label="@string/title_activity_load_rest_image"></activity>
+        <activity
+            android:name=".universal_image_loader.UniversalImageLoader"
+            android:label="@string/title_activity_universal_image_loader"></activity>
+
+        <activity
+            android:name=".evernote.ui.activity.NoteMainActivity"
+            android:label="@string/app_name">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".evernote.ui.activity.SettingActivity"
+            android:label="@string/title_activity_setting"></activity>
+        <activity
+            android:name=".evernote.ui.activity.EditNoteActivity"
+            android:label="@string/title_activity_edit_note"></activity>
+        <activity
+            android:name=".evernote.ui.activity.EditNoteTypeActivity"
+            android:label="@string/title_activity_edit_note_type"></activity>
     </application>
 
 </manifest>

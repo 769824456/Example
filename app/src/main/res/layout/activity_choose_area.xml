@@ -6,7 +6,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#ff57c9ee">
+        android:background="@color/colorPrimary">
 
         <TextView
             android:id="@+id/tv_choose_area_title"

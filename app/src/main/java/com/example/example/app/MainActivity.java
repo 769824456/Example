@@ -1,4 +1,4 @@
-package com.example.example;
+package com.example.example.app;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,18 +9,29 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.example.R;
+import com.example.example.evernote.ui.activity.NoteMainActivity;
+import com.example.example.fresco.FrescoActivity;
 import com.example.example.recycler_view.RecyclerViewGridViewActivity;
 import com.example.example.recycler_view.RecyclerViewHorizontalActivity;
 import com.example.example.recycler_view.RecyclerViewVerticalActivity;
 import com.example.example.toolbar.ToolBarActivity;
+import com.example.example.universal_image_loader.UniversalImageLoader;
 import com.example.example.weather.activity.ChooseAreaActivity;
-import com.example.example.weather.activity.ChooseAreaActivity_;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ * PROJECT_NAME :Example
+ * VERSION :[V 1.0.0]
+ * AUTHOR : yulong sun
+ * CREATE AT : 7/21/2015 2:01 PM
+ * COPYRIGHT : InSigma HengTian Software Ltd.
+ * NOTE : 程序入口
+ */
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     @Bind(R.id.lv_main)
@@ -37,14 +48,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void initListView() {
+        //1.initDatas
         mDatas = new ArrayList<>();
         mDatas.add(RecyclerViewHorizontalActivity.TAG);
         mDatas.add(RecyclerViewVerticalActivity.TAG);
         mDatas.add(RecyclerViewGridViewActivity.TAG);
         mDatas.add(ToolBarActivity.TAG);
-        mDatas.add("天气预报");
-
-
+        mDatas.add(ChooseAreaActivity.TAG);
+        mDatas.add(FrescoActivity.TAG);
+        mDatas.add(UniversalImageLoader.TAG);
+        mDatas.add(NoteMainActivity.TAG);
+        //2.
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mDatas);
         lvMain.setAdapter(mAdapter);
         lvMain.setOnItemClickListener(this);
@@ -54,16 +68,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         String position = mDatas.get(i);
         Intent intent = null;
-        if (TextUtils.equals(position, RecyclerViewHorizontalActivity.TAG)) {
+        if (TextUtils.equals(position, RecyclerViewHorizontalActivity.TAG)) {       //水平画廊
             intent = new Intent(this, RecyclerViewHorizontalActivity.class);
-        } else if (TextUtils.equals(position, RecyclerViewVerticalActivity.TAG)) {
+        } else if (TextUtils.equals(position, RecyclerViewVerticalActivity.TAG)) {  //垂直
             intent = new Intent(this, RecyclerViewVerticalActivity.class);
-        } else if (TextUtils.equals(position, RecyclerViewGridViewActivity.TAG)) {
+        } else if (TextUtils.equals(position, RecyclerViewGridViewActivity.TAG)) {  //卡片
             intent = new Intent(this, RecyclerViewGridViewActivity.class);
-        } else if (TextUtils.equals(position, ToolBarActivity.TAG)) {
+        } else if (TextUtils.equals(position, ToolBarActivity.TAG)) {               //Toolbar
             intent = new Intent(this, ToolBarActivity.class);
-        } else if (TextUtils.equals(position, ChooseAreaActivity.TAG)) {
-            intent = new Intent(this, ChooseAreaActivity_.class);
+        } else if (TextUtils.equals(position, ChooseAreaActivity.TAG)) {             //天气预报
+            intent = new Intent(this, ChooseAreaActivity.class);
+        }else if (TextUtils.equals(position, FrescoActivity.TAG)) {                 //Fresco
+            intent = new Intent(this, FrescoActivity.class);
+        }else if (TextUtils.equals(position, UniversalImageLoader.TAG)) {           //universal image loader
+            intent = new Intent(this, UniversalImageLoader.class);
+        }else if (TextUtils.equals(position, NoteMainActivity.TAG)) {               //笔记本App
+            intent = new Intent(this, NoteMainActivity.class);
         }
         if (null != intent) {
             startActivity(intent);

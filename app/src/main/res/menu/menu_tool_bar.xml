@@ -25,11 +25,11 @@
         android:orderInCategory="100"
         android:icon="@mipmap/biz_main_menu_theme"
         app:showAsAction="never"/>
-    <item android:id="@+id/action_search"
+    <!--<item android:id="@+id/action_search"
         android:title="@string/search"
         android:orderInCategory="100"
         android:icon="@mipmap/biz_main_menu_search"
-        app:showAsAction="never"/>
+        app:showAsAction="never"/>-->
     <item android:id="@+id/action_scan"
         android:title="@string/scan"
         android:orderInCategory="100"

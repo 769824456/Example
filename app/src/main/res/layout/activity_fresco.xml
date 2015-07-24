@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.example.fresco.FrescoActivity">
+
+    <Button
+        android:id="@+id/btn_load_http_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="加载远程图片" />
+
+    <Button
+        android:id="@+id/btn_asset_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="加载asset目录下的资源" />
+    <Button
+        android:id="@+id/btn_res_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="加载Res目录下的资源" />
+</LinearLayout>
